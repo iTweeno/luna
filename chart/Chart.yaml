@@ -1,0 +1,7 @@
+apiVersion: v1
+name: luna_api
+description: nice
+
+type: application
+version: 0.1.0
+appVersion: 0.1.0

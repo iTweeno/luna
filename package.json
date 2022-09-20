@@ -1,0 +1,35 @@
+{
+	"dependencies": {
+		"@prisma/client": "^4.3.1",
+		"dotenv": "^16.0.2",
+		"fastify": "^4.5.3",
+		"node-fetch": "^2",
+		"pino": "^8.5.0",
+		"pino-pretty": "^9.1.0",
+		"prisma": "^4.3.1",
+		"ts-node": "^10.9.1",
+		"typescript": "^4.8.2"
+	},
+	"scripts": {
+		"build": "tsc",
+		"lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
+		"dev": "cross-env NODE_ENV=dev tsc-watch --onSuccess \"pnpm run prod\"",
+		"prod": "node ./dist/index.js | pnpm pino-pretty",
+		"test": "uvu -r ts-node/register tests",
+		"seed": "cross-env NODE_ENV=seed ts-node ./src/utils/seed.ts"
+	},
+	"devDependencies": {
+		"@types/node": "^18.0.3",
+		"@typescript-eslint/eslint-plugin": "^5.30.5",
+		"@typescript-eslint/parser": "^5.30.5",
+		"cross-env": "^7.0.3",
+		"eslint": "^8.19.0",
+		"eslint-config-prettier": "^8.5.0",
+		"eslint-plugin-import": "^2.26.0",
+		"eslint-plugin-prettier": "^4.2.1",
+		"prettier": "^2.7.1",
+		"tsc-watch": "^5.0.3",
+		"typescript": "^4.7.4",
+		"uvu": "^0.5.6"
+	}
+}

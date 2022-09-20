@@ -1,0 +1,8 @@
+**
+!/src/**
+!package.json
+!pnpm-lock.yaml
+!tsconfig.json
+!/prisma/**
+!run.sh
+!babel.config.js

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "removeComments": true,
+    "target": "es2021",
+    "outDir": "./dist",
+    //"rootDir": "./",
+    "incremental": true,
+    "skipLibCheck": true,
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "strictBindCallApply": false,
+    "forceConsistentCasingInFileNames": false,
+    "noFallthroughCasesInSwitch": false,
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "strict": true,
+    "resolveJsonModule": true,
+  },
+  "include": [
+    "src",
+    "test",
+    "src/data.json"
+  ],
+}

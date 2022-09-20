@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: "{{ .Release.Name }}-config"
+  namespace: "{{ .Release.Namespace }}"
+data:
+  WEBSERVER_PORT: "80"
+  WEBSERVER_ADRESS: "0.0.0.0"
