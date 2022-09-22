@@ -1,45 +1,67 @@
 import { test } from "uvu";
 
-import * as assert from "uvu/assert";
+import buildFastify from "../src/utils/buildFastify";
 
-import { search } from "../src/v1/services/search";
+import * as assert from "uvu/assert";
+import { FastifyInstance } from "fastify";
 
 if (!process.env.DATABASE_URL) {
   process.env.DATABASE_URL = "postgresql://luna:a@localhost:5432/luna?schema=public";
 }
 
-test("Searching a word with less than 3 characters should throw an error", async () => {
-  try {
-    await search("aa");
+let app: FastifyInstance;
 
-    assert.unreachable("Should have thrown an error");
-  } catch (e: any) {
-    assert.is(e.message, "Term must be at least 3 characters long");
-  }
+test.before(() => {
+  app = buildFastify();
+});
+
+test("Searching a word with less than 3 characters should throw an error", async () => {
+  const response = await app.inject({
+    method: "GET",
+    url: "/api/v1/search/aa",
+  });
+
+  assert.is(response.statusCode, 400);
 });
 
 test("Searching the word 'web' should return 10 results", async () => {
-  const result = await search("web");
+  const response = await app.inject({
+    method: "GET",
+    url: "/api/v1/search/web",
+  });
 
-  assert.is(result.length, 10);
+  assert.is(JSON.parse(response.payload).length, 10);
 });
 
 test("Searching the words 'developer web' should return 10 results", async () => {
-  const result = await search("developer web");
+  const response = await app.inject({
+    method: "GET",
+    url: "/api/v1/search/developer web",
+  });
 
-  assert.is(result.length, 10);
+  assert.is(JSON.parse(response.payload).length, 10);
 });
 
-test("Searching the words 'programming && web' should return 6 results", async () => {
-  const result = await search("programming && web");
+test("Searching the words 'ASP.NET & programming' should return 6 results", async () => {
+  const response = await app.inject({
+    method: "GET",
+    url: "/api/v1/search/ASP.NET & programming",
+  });
 
-  assert.is(result.length, 6);
+  assert.is(JSON.parse(response.payload).length, 7);
 });
 
 test("Searching the word 'the' should return 0 results", async () => {
-  const result = await search("the");
+  const response = await app.inject({
+    method: "GET",
+    url: "/api/v1/search/the",
+  });
 
-  assert.is(result.length, 0);
+  assert.is(JSON.parse(response.payload).length, 0);
+});
+
+test.after(() => {
+  app.close();
 });
 
 test.run();

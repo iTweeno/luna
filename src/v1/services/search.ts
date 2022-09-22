@@ -22,10 +22,10 @@ const search = async (term: string, skip = 0): Promise<ISearch[]> => {
     SELECT id,
     title,
     content,
-    ts_rank("textSearch",websearch_to_tsquery('english', ${query})) AS rank 
+    ts_rank("textSearch",to_tsquery('english', ${query})) AS rank 
     FROM "search_prompts"
     WHERE
-      "textSearch" @@ websearch_to_tsquery('english', ${query})
+      "textSearch" @@ to_tsquery('english', ${query})
     ORDER BY rank DESC
     LIMIT 10 OFFSET ${skip};
   `;
