@@ -8,11 +8,11 @@ import { FastifyInstance } from "fastify";
 if (!process.env.DATABASE_URL) {
   process.env.DATABASE_URL = "postgresql://luna:a@localhost:5432/luna?schema=public";
 }
-
+console.log(process.env.WEBSERVER_PORT);
 let app: FastifyInstance;
 
 test.before(() => {
-  app = buildFastify();
+  app = buildFastify({}, 3000, "0.0.0.0");
 });
 
 test("Searching a word with less than 3 characters should throw an error", async () => {
